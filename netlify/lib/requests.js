@@ -48,7 +48,22 @@ async function updateRequest(db, body) {
   return { statusCode: 200, body: { success: true, request: data } }
 }
 
-// GET → { requests, previousCount } for the range ('7' | '28' | '90' | 'all'); PATCH → updateRequest
+// DELETE body { id } → permanently removes the request
+async function deleteRequest(db, body) {
+  let id
+  try {
+    ({ id } = JSON.parse(body || '{}'))
+  } catch {
+    return { statusCode: 400, body: { success: false, message: 'Invalid JSON body.' } }
+  }
+  if (typeof id !== 'string') return { statusCode: 400, body: { success: false, message: 'Expected { id }.' } }
+  const { data, error } = await db.from('assessment_requests').delete().eq('id', id).select('id').maybeSingle()
+  if (error) return { statusCode: 500, body: { success: false, message: error.message } }
+  if (!data) return { statusCode: 404, body: { success: false, message: 'Request not found.' } }
+  return { statusCode: 200, body: { success: true } }
+}
+
+// GET → { requests, previousCount } for the range ('7' | '28' | '90' | 'all'); PATCH → updateRequest; DELETE → deleteRequest
 export async function handleRequests(env, { method = 'GET', authHeader, range, body }) {
   if (!isConfigured(env) || !verifyToken(env, bearerToken(authHeader))) {
     return { statusCode: 401, body: { success: false, message: 'Not signed in.' } }
@@ -59,6 +74,7 @@ export async function handleRequests(env, { method = 'GET', authHeader, range, b
 
   const db = supabaseAdmin(env)
   if (method === 'PATCH') return updateRequest(db, body)
+  if (method === 'DELETE') return deleteRequest(db, body)
   if (method !== 'GET') return { statusCode: 405, body: { success: false, message: 'Method not allowed.' } }
 
   const key = range in RANGES ? range : '28'

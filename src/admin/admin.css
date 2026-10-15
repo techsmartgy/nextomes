@@ -145,6 +145,7 @@ a{color:var(--a-brass-dk)}
 .adm-archive-btn.lg{height:42px;margin-left:0;padding:0 16px;border-radius:10px;font-size:.92rem}
 .adm-archive-btn:disabled{opacity:.6;cursor:default}
 .adm-actions .adm-archive-btn{margin-left:0}
+.adm-delete-btn:hover{border-color:#B5533C;color:#B5533C;background:#FBEDE9}
 @media (max-width:720px){.adm-tabs{width:100%}.adm-tabs button{flex:1;justify-content:center;gap:5px;padding:0 4px;font-size:.8rem}.adm-tabs button span{min-width:0;padding:1px 6px}}
 
 /* Phones: each row becomes a card (name + date, property, situation chips, condition/timeline) */

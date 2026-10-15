@@ -30,6 +30,20 @@ function ArchiveButton({ r, busy, onArchive, size }) {
   )
 }
 
+const TrashIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6" /></svg>
+)
+
+function DeleteButton({ r, busy, onDelete, size }) {
+  return (
+    <button type="button" className={`adm-archive-btn adm-delete-btn${size === 'lg' ? ' lg' : ''}`} disabled={busy}
+      onClick={e => { e.stopPropagation(); onDelete(r) }} onKeyDown={e => e.stopPropagation()}
+      aria-label={`Delete request from ${r.name}`} title="Delete">
+      <TrashIcon />{size === 'lg' && <span>Delete</span>}
+    </button>
+  )
+}
+
 function StatusBadge({ r }) {
   return r.status === 'closed'
     ? <span className="adm-badge closed" title={r.closed_at ? `Closed ${formatDateTime(r.closed_at)}` : undefined}>Closed</span>
@@ -44,7 +58,7 @@ function Field({ label, children }) {
   return <><dt>{label}</dt><dd>{children || '—'}</dd></>
 }
 
-function Detail({ r, onClose, busy, onToggle, onArchive }) {
+function Detail({ r, onClose, busy, onToggle, onArchive, onDelete }) {
   useEffect(() => {
     const onKey = e => e.key === 'Escape' && onClose()
     document.addEventListener('keydown', onKey)
@@ -76,6 +90,7 @@ function Detail({ r, onClose, busy, onToggle, onArchive }) {
           <a className="adm-btn ghost" href={`mailto:${r.email}?subject=${encodeURIComponent(`Your property assessment (${r.reference})`)}`}>Email</a>
           <StatusButton r={r} busy={busy} onToggle={onToggle} size="lg" />
           <ArchiveButton r={r} busy={busy} onArchive={onArchive} size="lg" />
+          <DeleteButton r={r} busy={busy} onDelete={onDelete} size="lg" />
         </div>
 
         <h3>Property</h3>
@@ -123,7 +138,7 @@ const idFromUrl = () => new URLSearchParams(location.search).get('id')
 
 export default function Requests({ onAuthError }) {
   const [range, setRange] = useState('all')
-  const { data, requests, error, busy, change } = useRequests(range, onAuthError)
+  const { data, requests, error, busy, change, remove } = useRequests(range, onAuthError)
   const [q, setQ] = useState('')
   const [view, setView] = useState('open')
   const [selectedId, setSelectedId] = useState(idFromUrl)
@@ -149,6 +164,10 @@ export default function Requests({ onAuthError }) {
 
   const toggleStatus = r => change(r, { status: r.status === 'closed' ? 'open' : 'closed' })
   const toggleArchive = r => change(r, { archived: !r.archived_at })
+  const del = r => {
+    if (!confirm(`Delete the request from ${r.name} (${r.address})?\n\nThis can't be undone. Archive it instead if you might need it later.`)) return
+    remove(r).then(ok => { if (ok && selectedId === r.id) select(null) })
+  }
 
   return (
     <>
@@ -197,6 +216,7 @@ export default function Requests({ onAuthError }) {
                               <StatusButton r={r} busy={busy.has(r.id)} onToggle={toggleStatus} />
                               <ArchiveButton r={r} busy={busy.has(r.id)} onArchive={toggleArchive} />
                             </>}
+                        <DeleteButton r={r} busy={busy.has(r.id)} onDelete={del} />
                       </td>
                     </tr>
                   ))}
@@ -207,7 +227,7 @@ export default function Requests({ onAuthError }) {
         </section>
       )}
 
-      {selected && <Detail r={selected} onClose={() => select(null)} busy={busy.has(selected.id)} onToggle={toggleStatus} onArchive={toggleArchive} />}
+      {selected && <Detail r={selected} onClose={() => select(null)} busy={busy.has(selected.id)} onToggle={toggleStatus} onArchive={toggleArchive} onDelete={del} />}
     </>
   )
 }

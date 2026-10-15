@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { AuthError, fetchRequests, updateRequest } from './api.js'
+import { AuthError, deleteRequest, fetchRequests, updateRequest } from './api.js'
 
 // Shared by the Dashboard and Requests pages
 
@@ -216,6 +216,20 @@ export function useRequests(range, onAuthError) {
       .finally(() => markBusy(r.id, false))
   }
 
+  // Waits for the server before removing the row, since a delete can't be rolled back
+  const remove = r => {
+    markBusy(r.id, true)
+    setError('')
+    return deleteRequest(r.id)
+      .then(() => { setData(d => ({ ...d, requests: d.requests.filter(x => x.id !== r.id) })); return true })
+      .catch(e => {
+        if (e instanceof AuthError) onAuthError()
+        else setError(e.message)
+        return false
+      })
+      .finally(() => markBusy(r.id, false))
+  }
+
   const requests = useMemo(() => data?.requests ?? [], [data])
-  return { data, requests, error, busy, change }
+  return { data, requests, error, busy, change, remove }
 }

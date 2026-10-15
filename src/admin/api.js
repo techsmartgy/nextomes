@@ -59,3 +59,15 @@ export async function updateRequest(id, changes) {
   if (!res.ok) throw new Error(data.message || `Could not update the request (${res.status})`)
   return data.request
 }
+
+// Permanent; there is no undo
+export async function deleteRequest(id) {
+  const res = await fetch(`${BASE}/admin-requests`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
+    body: JSON.stringify({ id }),
+  })
+  const data = await readJson(res)
+  if (res.status === 401) throw new AuthError(data.message)
+  if (!res.ok) throw new Error(data.message || `Could not delete the request (${res.status})`)
+}
