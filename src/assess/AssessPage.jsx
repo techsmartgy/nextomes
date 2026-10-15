@@ -316,26 +316,31 @@ function LeadForm() {
           </form>
         )}
 
-        {done && (
+        {done && result.sent && (
+          <div className="done as-thanks">
+            <div className="tick">✓</div>
+            <h3>Thank you.</h3>
+            <p>We&apos;ll be in touch within one business day.</p>
+            <a className="btn ghost" href="/">Back to NexOmes</a>
+          </div>
+        )}
+
+        {/* Only when nothing reached us: hand the owner the request to email themselves */}
+        {done && !result.sent && (
           <div className="done">
-            <div className="tick">{result.sent ? '✓' : '→'}</div>
-            <h3>{result.sent ? 'Thank you. We have your details.' : 'Almost there. Send it to us by email.'}</h3>
-            <p>{result.sent
-              ? 'A member of the NexOmes team will review the property and contact you within one business day with next steps.'
-              : `We couldn’t submit your request automatically. Copy the message below and email it to ${CONTACT_EMAIL}, or open it in your email app. We’ll respond within one business day.`}</p>
-            <p className="ref">Reference {result.ref}</p>
+            <div className="tick">→</div>
+            <h3>Almost there. Send it to us by email.</h3>
+            <p>We couldn&apos;t submit your request automatically. Copy the message below and email it to {CONTACT_EMAIL}, or open it in your email app.</p>
             <div className="mail-copy">
-              <p className="lbl">{result.sent ? 'Want a copy for your records? Here\'s your request as an email.' : 'Your request, ready to send'}</p>
               <dl className="mc-meta"><dt>To</dt><dd>{CONTACT_EMAIL}</dd><dt>Subject</dt><dd>{result.subj}</dd></dl>
               <textarea readOnly rows={14} aria-label="Email message" ref={bodyRef} value={result.body} />
               <div className="actions"><button className="btn" type="button" onClick={copyMessage}>{copied ? 'Copied ✓' : 'Copy message'}</button><a className="btn ghost" href={mailto}>Open in email app <span className="arr">→</span></a></div>
             </div>
-            <p className="as-home"><a href="/">← Back to NexOmes</a></p>
           </div>
         )}
       </div>
 
-      <p className="as-note">Confidential. No obligation. Prefer email? Write to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+      <p className="as-note" hidden={done}>Confidential. No obligation. Prefer email? Write to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
     </div>
   )
 }
