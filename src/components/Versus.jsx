@@ -6,9 +6,9 @@ const PANELS = [
     id: 'own', tab: 'Property owners', head: 'What most owners are stuck doing',
     rows: [
       ['List it, wait months, and hope a buyer shows up', 'A clear, written path forward after one walkthrough'],
-      ['Pay for repairs before anyone will make an offer', 'Sell as-is. We handle the repairs'],
+      ['Pay for repairs before anyone will make an offer', 'Sell as-is. We underwrite the repairs, not you'],
       ['Cover the mortgage while the unit sits vacant', 'Turn a monthly loss into dependable income'],
-      ['Face code violations, liens and back taxes alone', 'One plan that covers every issue'],
+      ['Face code violations, liens and back taxes alone', 'Every issue mapped into one plan'],
       ['Juggle contractors, permits and surprise costs', 'Scope, budget and schedule fixed before work begins'],
       ['Wait weeks to hear back', 'A response within one business day'],
     ],
@@ -17,7 +17,7 @@ const PANELS = [
   {
     id: 'res', tab: 'Residents', head: 'What most renters put up with',
     rows: [
-      ['Move into a unit that was patched, not cared for', 'Move into a well-kept home, ready on day one'],
+      ['Move into a unit that was patched, not cared for', 'Move into a well-maintained home, ready on day one'],
       ['Repair requests that disappear', 'Every request tracked from submission to completion'],
       ['Problems fixed only after they break', 'Preventive maintenance on a set schedule'],
       ['Different rules for different applicants', 'One clear, consistent screening standard'],

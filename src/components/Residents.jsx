@@ -1,17 +1,17 @@
 import { Mark } from './icons.jsx'
 
 const PROMISES = [
-  ['Ready before you arrive', 'Every home is cleaned, repaired and inspected before move-in.'],
-  ['Heard, not handled', 'Track every repair request until the job is done.'],
-  ['Respect, every time', 'The same fair screening for every applicant. No fine print.'],
-  ['Cared for, not chased', 'Regular maintenance, so small problems stay small.'],
+  ['Ready before you arrive', "Every home is well maintained and inspected before move-in. You never move into someone else's leftovers."],
+  ['Heard, not handled', 'Repair requests are tracked from the moment you submit them until the job is done, and you see every step.'],
+  ['Respect, every time', 'One clear, consistent screening standard for every applicant. No surprises, no fine print games.'],
+  ['Cared for, not chased', 'Preventive maintenance on a set schedule, so small problems never become your problem.'],
 ]
 
 const STEPS = [
   ['Find your home', 'Browse available homes across Rochester.'],
-  ['Apply', 'One simple, fair application.'],
-  ['Move in', 'Walk through your clean, ready home with our team.'],
-  ['Settle in', 'Pay rent and send requests online, with a team that knows you.'],
+  ['Apply', 'One simple application, reviewed the same way for everyone.'],
+  ['Move in', 'A clean, well-maintained home and a walkthrough with our team.'],
+  ['Settle in', 'Your resident portal for payments and requests, and a team that knows your name.'],
 ]
 
 export default function Residents() {
@@ -22,7 +22,7 @@ export default function Residents() {
           <div>
             <span className="res-tag"><i />NexOmes Resident</span>
             <h2 style={{ marginTop: 20 }}>You&apos;re not a lease. <em className="it">You&apos;re family.</em></h2>
-            <p className="lede" style={{ marginTop: 22 }}>You&apos;re looking for a home, not just a unit. As a NexOmes Resident, you&apos;re treated like family from your first visit to every renewal.</p>
+            <p className="lede" style={{ marginTop: 22 }}>Everyone who walks through our door is looking for a home, not a unit. As a NexOmes Resident, you&apos;re part of our family, and we treat you that way from the first walkthrough to every renewal after.</p>
           </div>
           <div className="res-card" aria-hidden="true">
             <div className="rc-top"><span className="mark"><Mark /></span><span className="rc-chip" /></div>

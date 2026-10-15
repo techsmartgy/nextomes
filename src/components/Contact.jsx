@@ -17,8 +17,8 @@ export default function Contact() {
       <div className="wrap contact-grid">
         <div>
           <p className="eyebrow">Contact</p>
-          <h2 style={{ marginTop: 16 }}>Have a property or need a home? <em>Let&apos;s talk.</em></h2>
-          <p className="lede">Owners and residents are welcome. A real person answers every message.</p>
+          <h2 style={{ marginTop: 16 }}>We&apos;re building something. <em>If that resonates, let&apos;s talk.</em></h2>
+          <p className="lede">Property owners and residents are all welcome. Every inquiry is answered by a member of our team.</p>
           <a className="btn" href={ASSESS_PATH}>Request an assessment <span className="arr">→</span></a>
         </div>
         <div className="coords">
