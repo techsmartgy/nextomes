@@ -155,10 +155,10 @@ function Stepper({ step, done }) {
     <ol className="as-track">
       {ASSESS_STEPS.map(([title], i) => {
         const n = i + 1
-        const state = done || n < step ? 'done' : n === step ? 'on' : undefined
+        const state = done || n < step ? 'past' : n === step ? 'on' : undefined
         return (
           <li key={title} className={state} aria-current={state === 'on' ? 'step' : undefined}>
-            <span className="n">{state === 'done' ? '✓' : n}</span>{title}
+            <span className="n">{state === 'past' ? '✓' : n}</span>{title}
           </li>
         )
       })}
@@ -220,9 +220,11 @@ function LeadForm() {
     }).then(r => r.json().then(j => {
       if (!r.ok || String(j.success) !== 'true') { console.warn('[lead form] FormSubmit:', j.message || r.status); throw new Error('not sent') }
     }))
-    // Saved for the admin portal and emailed to the team; either one reaching us counts
-    Promise.allSettled([saveRequest(f, ref), email]).then(rs => {
-      setResult({ sent: rs.some(r => r.status === 'fulfilled'), ref, subj, body })
+    // Saved for the admin portal and emailed to the team. Finish as soon as either one
+    // reaches us (the other keeps going in the background); give up on each after 12s.
+    const timeout = p => Promise.race([p, new Promise((_, no) => setTimeout(() => no(new Error('timeout')), 12000))])
+    Promise.any([saveRequest(f, ref), email].map(timeout)).then(() => true, () => false).then(sent => {
+      setResult({ sent, ref, subj, body })
       window.scrollTo({ top: 0 })
     })
   }

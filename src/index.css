@@ -305,11 +305,11 @@ input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--slate) 70
 .as-track{list-style:none;margin:0 0 8px;padding:0;display:grid;grid-template-columns:repeat(3,1fr)}
 .as-track li{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.92rem;font-weight:500;color:var(--slate)}
 .as-track li+li::before{content:"";position:absolute;top:17px;right:calc(50% + 26px);left:calc(-50% + 26px);height:1px;background:var(--rule)}
-.as-track li.on,.as-track li.done{color:var(--ink)}
-.as-track li.on::before,.as-track li.done::before{background:var(--brass)}
+.as-track li.on,.as-track li.past{color:var(--ink)}
+.as-track li.on::before,.as-track li.past::before{background:var(--brass)}
 .as-track .n{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--rule);border-radius:50%;font-size:.85rem;background:var(--paper);transition:all .3s}
 .as-track li.on .n{border-color:var(--brass);background:var(--brass);color:#fff}
-.as-track li.done .n{border-color:var(--brass);color:var(--brass)}
+.as-track li.past .n{border-color:var(--brass);color:var(--brass)}
 /* form card: larger, sentence-case labels and boxed fields for readability */
 .as-panel{padding:clamp(24px,5vw,48px);border-radius:12px}
 .as-panel form{margin-top:0;gap:24px}
