@@ -1,18 +1,18 @@
 const DIVISIONS = [
   {
     k: 'Renovation', name: 'Value-Add™',
-    body: 'Distressed acquisition and strategic renovation, executed through the NexOmes Rehab Control System™.',
-    points: ['Scope, budget and schedule fixed before demolition', 'Licensed contractors under a dedicated rehab entity', 'Staged renovation with inspection at every gate'],
+    body: 'We buy distressed properties and renovate them on a fixed plan.',
+    points: ['Scope, budget and schedule set before work starts', 'Licensed contractors', 'Inspected at every stage'],
   },
   {
     k: 'Residential', name: 'Residential',
-    body: 'Long-term partnerships with owners of 1–4 unit residential homes who want dependable income without the day-to-day.',
-    points: ['Clear terms agreed up front', 'One accountable point of contact', 'Homes kept to a consistent standard'],
+    body: 'We partner with owners of 1–4 unit homes who want steady income without the day-to-day.',
+    points: ['Clear terms up front', 'One point of contact', 'Homes kept to one standard'],
   },
   {
     k: 'Income property', name: 'Multifamily',
-    body: "Multifamily acquisitions along Rochester's transit corridors, with a focus on income optimization over time.",
-    points: ['Corridor-based site selection', 'Rent roll and expense normalization', 'Capital improvements tied to income'],
+    body: "We buy apartment buildings near Rochester's transit routes and grow their income over time.",
+    points: ['Chosen for location', 'Rents and costs put in order', 'Upgrades that raise income'],
   },
 ]
 
@@ -21,8 +21,8 @@ export default function Divisions() {
     <section className="divisions" id="divisions">
       <div className="wrap">
         <div className="sec-head">
-          <div><p className="eyebrow">Three divisions</p><h2 style={{ marginTop: 16 }}>One operating company, three disciplines.</h2></div>
-          <p className="lede">Each division runs on the same underwriting standard and reporting cadence, so an asset can move from renovation to long-term hold without changing hands.</p>
+          <div><p className="eyebrow">Three divisions</p><h2 style={{ marginTop: 16 }}>One company, three ways we work.</h2></div>
+          <p className="lede">All three follow the same standards, so a property can go from renovation to long-term ownership without changing hands.</p>
         </div>
         <div className="div-list">
           {DIVISIONS.map(d => (

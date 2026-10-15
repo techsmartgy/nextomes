@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { ASSESS_PATH } from '../constants.js'
 
 const STAGES = [
   {
@@ -130,9 +131,9 @@ export default function Hero() {
         <div className="hero-copy">
           <p className="eyebrow">Real estate company · Rochester, New York</p>
           <h1>We engineer <span className="i">the outcome.</span></h1>
-          <p className="lede">NexOmes acquires, renovates and stabilizes residential real estate across Rochester. Conservative underwriting, a dedicated LLC for every project, and one accountable team from acquisition to stabilized income.</p>
+          <p className="lede">We buy, renovate and manage homes across Rochester. Careful numbers and one team from start to finish.</p>
           <div className="ctas">
-            <a className="btn" href="#sell">Is your property underperforming? <span className="arr">→</span></a>
+            <a className="btn" href={ASSESS_PATH}>Get a property assessment <span className="arr">→</span></a>
             <a className="btn ghost" href="#process">How we work</a>
           </div>
         </div>

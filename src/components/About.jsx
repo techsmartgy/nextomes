@@ -1,7 +1,7 @@
 const TENETS = [
-  ['Disciplined', "Every acquisition passes the same underwriting. If the numbers don't hold at conservative assumptions, we walk."],
-  ['Systems-led', 'AI is core infrastructure across every division, from deal screening to renovation scheduling and resident service.'],
-  ['Accountable', 'One team owns the asset end to end, with a clear escalation path and audit-ready records.'],
+  ['Disciplined', "We only buy when the numbers work. If they don't, we walk away."],
+  ['Systems-led', 'Clear systems, including AI, keep every project on schedule and every request on track.'],
+  ['Accountable', 'One team owns each property from start to finish.'],
 ]
 
 export default function About() {
@@ -13,24 +13,23 @@ export default function About() {
           <h2 className="ah-a">Better homes. Stronger assets.</h2>
           <p className="ah-b"><em className="it">Disciplined execution.</em></p>
           <div className="ah-side">
-            <p className="lede">We are a real estate operating company, built to turn underperforming property into high-performing assets. We are not a brokerage, and we don&apos;t gamble on renovations.</p>
+            <p className="lede">We turn struggling properties into well-run homes. We&apos;re not a brokerage, and we don&apos;t gamble on renovations.</p>
             <nav className="ah-divs" aria-label="Divisions"><a href="#divisions">Value-Add™</a><a href="#divisions">Residential</a><a href="#divisions">Multifamily</a></nav>
           </div>
         </div>
-        <div className="about-grid">
-          <div>
-            <p className="purpose">We exist to provide quality homes and well-run real estate that improve the lives of residents while creating long-term value for owners and the neighborhoods we serve.</p>
-            <div className="sig">
-              <i>With warm regards,</i>
-              <b>Carlean Reynolds</b>
-              <span>Chief Operating Officer</span>
-              <span>NexOmes Corporation</span>
-            </div>
-          </div>
-          <ul className="tenets">
-            {TENETS.map(([t, d]) => <li key={t}><strong>{t}</strong><span>{d}</span></li>)}
-          </ul>
-        </div>
+        <ol className="tenets">
+          {TENETS.map(([t, d], i) => (
+            <li key={t}><span className="tn">0{i + 1}</span><strong>{t}</strong><p>{d}</p></li>
+          ))}
+        </ol>
+        <figure className="purpose-card">
+          <blockquote className="purpose">We provide quality homes that improve residents&apos; lives and build lasting value for owners and neighborhoods.</blockquote>
+          <figcaption className="sig">
+            <i>With warm regards,</i>
+            <b>Carlean Reynolds</b>
+            <span>Chief Operating Officer · NexOmes Corporation</span>
+          </figcaption>
+        </figure>
       </div>
     </section>
   )
