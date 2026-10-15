@@ -1,0 +1,978 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>NexOmes Corporation</title><link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="favicon.png"></head><body>
+<script>
+(function(){var t='light';try{t=localStorage.getItem('nx-theme')||'light'}catch(_){}document.documentElement.setAttribute('data-theme',t)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400&display=swap">
+<style>
+/* Layout: editorial 12-column grid; placeholders are drawn as numbered architectural "plates" (line elevations) rather than stock photos */
+:root{
+  --paper:#F8F7F4; --stone:#EDEBE8; --card:#FFFFFF; --ink:#1A1A2E; --brass:#8B7355; --brass-lt:#A8956E;
+  --slate:#5D6D7E; --rule:#D5D8DC; --night:#1A1A2E; --on-night:#F8F7F4; --on-night-2:#B9B4AA; --ok:#27AE60;
+  --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --body:"DM Sans", Calibri, "Helvetica Neue", sans-serif;
+  --mono:"DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --wrap:1200px; --gut:clamp(16px,4vw,48px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11111D; --stone:#181827; --card:#1C1C2D; --ink:#EEEAE2; --brass:#B39B74; --brass-lt:#C8B48E;
+  --slate:#9EA6B1; --rule:#2B2B3F; --night:#0B0B14; --on-night:#F3EFE7; --on-night-2:#A39E94; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#11111D; --stone:#181827; --card:#1C1C2D; --ink:#EEEAE2; --brass:#B39B74; --brass-lt:#C8B48E;
+  --slate:#9EA6B1; --rule:#2B2B3F; --night:#0B0B14; --on-night:#F3EFE7; --on-night-2:#A39E94; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:clamp(2.2rem,4.6vw,3.6rem)}
+h3{font-size:1.65rem;line-height:1.15}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass)}
+.lede{font-size:1.125rem;color:var(--slate);max-width:62ch}
+em.it{font-style:italic;color:var(--brass);font-weight:500}
+section{padding-block:clamp(72px,10vw,128px)}
+.sec-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,5vw,72px);align-items:end;margin-bottom:clamp(40px,6vw,72px)}
+.sec-head .lede{justify-self:start}
+@media (max-width:820px){.sec-head{grid-template-columns:1fr}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.6em;font:500 .9rem/1 var(--body);letter-spacing:.04em;padding:1rem 1.5rem;border:1px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.btn:hover{background:var(--brass);border-color:var(--brass);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn .arr{transition:transform .25s}
+.btn:hover .arr{transform:translateX(3px)}
+
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:72px}
+.mark{font-family:var(--display);font-size:1.7rem;text-decoration:none;letter-spacing:-.01em;line-height:1}
+.mark b{font-weight:600}.mark span{font-weight:500;color:var(--brass)}
+.nav ul{display:flex;gap:clamp(14px,2vw,30px);list-style:none;margin:0;padding:0;font-size:.86rem}
+.nav ul a{text-decoration:none;color:var(--slate);transition:color .2s}
+.nav ul a:hover{color:var(--ink)}
+.nav .btn{padding:.75rem 1.1rem;font-size:.8rem}
+.nav-r{display:flex;align-items:center;gap:12px}
+.theme{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer;transition:border-color .2s,color .2s}
+.theme:hover{border-color:var(--brass);color:var(--brass)}
+.theme svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.theme .sun{display:none}
+:root[data-theme="dark"] .theme .sun{display:block}
+:root[data-theme="dark"] .theme .moon{display:none}
+@media (max-width:1020px){.nav ul{display:none}}
+@media (max-width:460px){.nav .btn{display:none}}
+
+/* Hero */
+.hero{padding-block:clamp(48px,7vw,96px) clamp(56px,8vw,104px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,80px);align-items:center}
+.hero h1{font-size:clamp(3.2rem,8.4vw,7rem);line-height:.95;margin-top:22px;letter-spacing:-.02em}
+.hero h1 .i{font-style:italic;font-weight:500;color:var(--brass)}
+.hero .lede{margin-top:28px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.hero-copy>*{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.hero-copy>*:nth-child(2){animation-delay:.08s}.hero-copy>*:nth-child(3){animation-delay:.16s}.hero-copy>*:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{transform:translateY(14px)}to{transform:none}}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+
+/* Plates (image placeholders) */
+.plate{position:relative;background:var(--stone);border:1px solid var(--rule);margin:0}
+.plate svg{display:block;width:100%;height:auto}
+.plate .ln{fill:none;stroke:var(--brass);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.plate .ln2{fill:none;stroke:var(--slate);stroke-width:.8;opacity:.55}
+.plate .fill{fill:var(--paper)}
+.plate figcaption{display:flex;justify-content:space-between;gap:16px;padding:12px 16px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+/* Hero build-up: the same house assembles stage by stage, then loops */
+.build-plate .bs{transition:opacity .7s ease}
+.build-plate .d{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.3s cubic-bezier(.65,.05,.3,1)}
+.build-plate .bs.on .d{stroke-dashoffset:0}
+.build-plate .bs text{opacity:0;transition:opacity .9s ease .4s}
+.build-plate .bs.on text{opacity:1}
+.build-plate .bs.on:not(.done) .ln{stroke-width:1.6}
+.build-plate svg.fade .bs{opacity:0}
+.build-plate svg.snap .d,.build-plate svg.snap text{transition:none}
+.build-plate figcaption{align-items:center}
+.ticks{display:flex;gap:4px}
+.ticks i{width:14px;height:2px;background:var(--rule);transition:background .4s}
+.ticks i.on{background:var(--brass)}
+
+/* Audience index */
+/* Audience tiles: raised 3D cards */
+.doors{padding-block:clamp(8px,2vw,16px) 0}
+#about{padding-top:clamp(48px,6vw,72px)}
+.doors .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.4vw,28px);perspective:1200px}
+.door{position:relative;display:flex;flex-direction:column;gap:10px;padding:34px 30px 30px;text-decoration:none;min-width:0;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--card) 100%,transparent) 0%,color-mix(in srgb,var(--card) 82%,var(--stone)) 100%);
+  border:1px solid color-mix(in srgb,var(--rule) 70%,transparent);border-radius:14px;
+  box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 70%,transparent),0 1px 2px color-mix(in srgb,var(--ink) 6%,transparent),0 8px 18px -6px color-mix(in srgb,var(--ink) 12%,transparent),0 28px 48px -24px color-mix(in srgb,var(--ink) 22%,transparent);
+  transform:translateZ(0);transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s cubic-bezier(.2,.7,.2,1),border-color .3s}
+.door::after{content:"";position:absolute;inset:auto 30px 0 30px;height:2px;border-radius:2px;background:var(--brass);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.door:hover,.door:focus-visible{transform:translateY(-6px) rotateX(3deg);border-color:color-mix(in srgb,var(--brass) 35%,transparent);
+  box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 70%,transparent),0 2px 4px color-mix(in srgb,var(--ink) 6%,transparent),0 18px 30px -10px color-mix(in srgb,var(--ink) 16%,transparent),0 44px 70px -30px color-mix(in srgb,var(--ink) 30%,transparent)}
+.door:hover::after,.door:focus-visible::after{transform:scaleX(1)}
+.door .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
+.door h3{font-size:1.6rem}
+.door p{color:var(--slate);font-size:.92rem}
+.door .go{margin-top:auto;padding-top:14px;font-size:.84rem;font-weight:500;display:flex;justify-content:space-between;align-items:center}
+.door .go b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1px solid var(--rule);font-weight:400;transition:background .3s,color .3s,border-color .3s}
+.door:hover .go b{background:var(--brass);border-color:var(--brass);color:#fff}
+:root[data-theme="dark"] .door{box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 6%,transparent),0 1px 2px rgba(0,0,0,.4),0 10px 22px -8px rgba(0,0,0,.55),0 30px 50px -26px rgba(0,0,0,.7)}
+@media (max-width:900px){.doors .wrap{grid-template-columns:1fr;max-width:560px}}
+
+/* About */
+/* About header: the right column is framed to the full height of the three-line headline —
+   paragraph top meets the cap line of "Better homes.", division line sits on the baseline of "Disciplined execution." */
+.about-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:clamp(24px,5vw,72px);margin-bottom:clamp(40px,6vw,72px)}
+.about-head .eyebrow{grid-column:1;grid-row:1;margin-bottom:16px}
+.about-head .ah-a{grid-column:1;grid-row:2}
+.about-head .ah-b{grid-column:1;grid-row:3;font-family:var(--display);font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
+.about-head .ah-side{grid-column:2;grid-row:2 / span 2;display:flex;flex-direction:column;justify-content:space-between;gap:20px;border-left:1px solid var(--rule);padding:.45rem 0 .35rem clamp(20px,3vw,40px)}
+.about-head .ah-side .lede{line-height:1.6}
+.ah-divs{display:flex;flex-wrap:wrap;gap:10px}
+.ah-divs a{position:relative;display:inline-flex;align-items:center;gap:9px;padding:9px 16px 9px 14px;border-radius:999px;text-decoration:none;
+  font:600 .76rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--brass) 16%,var(--card)),color-mix(in srgb,var(--brass) 26%,var(--card)));
+  border:1px solid color-mix(in srgb,var(--brass) 55%,transparent);
+  box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 45%,transparent),0 6px 14px -8px color-mix(in srgb,var(--brass) 70%,transparent);
+  transition:background .3s,color .3s,transform .3s,box-shadow .3s}
+.ah-divs a::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--brass);box-shadow:0 0 0 3px color-mix(in srgb,var(--brass) 22%,transparent);transition:background .3s}
+.ah-divs a:hover,.ah-divs a:focus-visible{background:var(--brass);color:#fff;transform:translateY(-2px);box-shadow:0 10px 20px -8px color-mix(in srgb,var(--brass) 80%,transparent)}
+.ah-divs a:hover::before,.ah-divs a:focus-visible::before{background:#fff}
+@media (max-width:820px){.about-head{grid-template-columns:1fr}.about-head .ah-side{grid-column:1;grid-row:4;border-left:0;padding:0;margin-top:22px}}
+/* same columns as .about-head so the principles list shares the paragraph's left edge */
+.about-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px) clamp(24px,5vw,72px)}
+.about-grid .tenets{margin-left:calc(clamp(20px,3vw,40px) + 1px)}
+.purpose{font-family:var(--display);font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.25;font-weight:500}
+.purpose::first-letter{font-size:3.2em;float:left;line-height:.82;margin:.06em .1em 0 0;color:var(--brass);font-weight:600}
+.sig{margin-top:36px;display:flex;flex-direction:column;gap:2px;font-size:.9rem;color:var(--slate)}
+.sig i{font-family:var(--display);font-size:1.15rem;color:var(--ink)}
+.sig b{color:var(--ink);font-weight:600;font-size:1.25rem;margin-top:10px}
+.tenets{list-style:none;margin:0;padding:0;display:grid}
+.tenets li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding-block:22px;border-top:1px solid var(--rule)}
+.tenets li:last-child{border-bottom:1px solid var(--rule)}
+.tenets strong{font-family:var(--display);font-size:1.4rem;font-weight:600;line-height:1.2}
+.tenets span{color:var(--slate);font-size:.95rem}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}.about-grid .tenets{margin-left:0}}
+@media (max-width:460px){.tenets li{grid-template-columns:1fr;gap:4px}}
+
+/* Divisions */
+.divisions{background:var(--night);color:var(--on-night)}
+.divisions .lede{color:var(--on-night-2)}
+.divisions .eyebrow{color:var(--brass-lt)}
+.div-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid color-mix(in srgb,var(--on-night) 18%,transparent)}
+.div-item{padding:36px 32px 8px 0;display:flex;flex-direction:column;gap:16px}
+.div-item+.div-item{padding-left:32px;border-left:1px solid color-mix(in srgb,var(--on-night) 18%,transparent)}
+.div-item .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-lt)}
+.div-item h3{font-size:2rem}
+.div-item h3 em{font-style:italic;font-weight:500;color:var(--brass-lt)}
+.div-item p{color:var(--on-night-2);font-size:.96rem}
+.div-item ul{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:.9rem}
+.div-item li{padding-left:18px;position:relative}
+.div-item li::before{content:"";position:absolute;left:0;top:.75em;width:9px;height:1px;background:var(--brass-lt)}
+@media (max-width:900px){.div-list{grid-template-columns:1fr}.div-item,.div-item+.div-item{padding:32px 0 28px;border-left:0;border-top:1px solid color-mix(in srgb,var(--on-night) 18%,transparent)}.div-list .div-item:first-child{border-top:0}}
+
+/* Process */
+.stages{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));counter-reset:s}
+.stage{position:relative;padding:44px 22px 0 0;counter-increment:s}
+.stage::before{content:"";position:absolute;top:14px;left:0;right:0;height:1px;background:var(--rule)}
+.stage::after{content:"";position:absolute;top:9px;left:0;width:11px;height:11px;border-radius:50%;background:var(--paper);border:1px solid var(--brass)}
+.stage:first-child::after{background:var(--brass)}
+.stage .n{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:var(--brass)}
+.stage .n::before{content:"Stage 0" counter(s)}
+.stage h3{margin:10px 0 10px;font-size:1.9rem}
+.stage p{color:var(--slate);font-size:.92rem}
+.rcs{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;padding:28px 32px;background:var(--stone);border:1px solid var(--rule)}
+.rcs p{font-family:var(--display);font-size:1.5rem;line-height:1.3}
+@media (max-width:980px){.stages{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:36px}}
+@media (max-width:560px){.stages{grid-template-columns:1fr}.rcs{grid-template-columns:1fr}}
+
+/* Old way vs NexOmes way */
+.versus{background:var(--stone);border-block:1px solid var(--rule)}
+.vs-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:24px;margin-bottom:36px}
+.vs-top h2 em{font-style:italic;font-weight:500;color:var(--brass)}
+.vs-top .lede{margin-top:14px}
+.vs-tabs{display:inline-flex;padding:4px;border-radius:999px;background:var(--card);border:1px solid var(--rule);box-shadow:inset 0 1px 2px color-mix(in srgb,var(--ink) 8%,transparent)}
+.vs-tabs button{font:600 .78rem/1 var(--body);letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:0;border-radius:999px;background:transparent;color:var(--slate);cursor:pointer;transition:background .3s,color .3s,box-shadow .3s}
+.vs-tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper);box-shadow:0 6px 14px -6px color-mix(in srgb,var(--ink) 60%,transparent)}
+.vs-table{display:grid;gap:10px}
+.vs-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-radius:12px;overflow:hidden;
+  box-shadow:0 1px 2px color-mix(in srgb,var(--ink) 6%,transparent),0 10px 24px -14px color-mix(in srgb,var(--ink) 25%,transparent)}
+.vs-row>div{display:flex;align-items:center;gap:14px;padding:18px 24px;min-width:0}
+.vs-old{background:var(--card);color:var(--slate);font-size:.95rem}
+.vs-old s{text-decoration-thickness:1.5px;text-decoration-color:color-mix(in srgb,var(--slate) 70%,transparent)}
+.vs-new{background:var(--night);color:var(--on-night);font-weight:600;font-size:1rem}
+.vs-mk{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.72rem;font-weight:700;line-height:1}
+.vs-old .vs-mk{border:1px solid var(--rule);color:var(--slate)}
+.vs-new .vs-mk{background:var(--brass);color:#fff}
+.vs-head{box-shadow:none}
+.vs-head>div{padding:14px 24px;font-family:var(--mono);font-size:.7rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase}
+.vs-head .vs-old{background:color-mix(in srgb,var(--rule) 55%,var(--card));color:var(--slate)}
+.vs-head .vs-new{color:var(--brass-lt)}
+.vs-panel[hidden]{display:none}
+.vs-panel .vs-row:not(.vs-head){animation:vsIn .5s cubic-bezier(.2,.7,.2,1) both}
+.vs-panel .vs-row:nth-child(3){animation-delay:.04s}.vs-panel .vs-row:nth-child(4){animation-delay:.08s}.vs-panel .vs-row:nth-child(5){animation-delay:.12s}.vs-panel .vs-row:nth-child(6){animation-delay:.16s}.vs-panel .vs-row:nth-child(7){animation-delay:.2s}.vs-panel .vs-row:nth-child(8){animation-delay:.24s}
+@keyframes vsIn{from{transform:translateY(8px)}to{transform:none}}
+.vs-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px;margin-top:36px;text-align:center}
+.vs-cta .fine{max-width:40ch}
+@media (max-width:640px){
+  .vs-row{grid-template-columns:1fr}
+  .vs-row>div{padding:14px 18px}
+  .vs-head{display:none}
+  .vs-old{font-size:.86rem}
+}
+
+/* Portfolio */
+.cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,36px)}
+.case h3{margin-top:22px;font-size:1.6rem}
+.case dl{margin:16px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 18px;font-size:.88rem}
+.case dt{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);padding-top:2px}
+.case dd{margin:0}
+.pending{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
+.pending::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brass)}
+@media (max-width:900px){.cases{grid-template-columns:1fr;max-width:560px}}
+
+/* Invest */
+.invest{background:var(--stone);border-block:1px solid var(--rule)}
+.invest-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,6vw,88px);align-items:start}
+.quote{font-family:var(--display);font-size:clamp(2.4rem,5vw,4rem);line-height:1.02;font-weight:600}
+.quote em{font-style:italic;font-weight:500;color:var(--brass)}
+.terms{margin-top:44px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+.term{padding:24px 24px 24px 0;border-top:1px solid var(--rule)}
+.term:nth-child(even){padding-left:24px;border-left:1px solid var(--rule)}
+.term .fig{font-family:var(--display);font-size:2.6rem;line-height:1;font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+.term .fig small{font-size:.5em;color:var(--brass)}
+.term h4{margin:10px 0 6px;font-size:.95rem;font-weight:600}
+.term p{color:var(--slate);font-size:.9rem}
+.disclaim{margin-top:28px;font-size:.78rem;color:var(--slate);max-width:62ch}
+@media (max-width:900px){.invest-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.terms{grid-template-columns:1fr}.term:nth-child(even){padding-left:0;border-left:0}}
+
+/* Forms */
+.panel{background:var(--card);border:1px solid var(--rule);padding:clamp(24px,3.5vw,40px)}
+.panel h3{font-size:1.9rem}
+.panel .sub{color:var(--slate);font-size:.92rem;margin-top:8px}
+form{display:grid;gap:18px;margin-top:26px}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.row.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){.row,.row.three{grid-template-columns:1fr}}
+.f{display:flex;flex-direction:column;gap:7px;min-width:0}
+.f label,.f legend,.lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--slate)}
+input,select,textarea{font:inherit;font-size:.98rem;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--rule);padding:10px 0;border-radius:0;width:100%;transition:border-color .2s}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--slate) 50%),linear-gradient(135deg,var(--slate) 50%,transparent 50%);background-position:calc(100% - 10px) 55%,calc(100% - 5px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:24px}
+select option{background:var(--card);color:var(--ink)}
+textarea{resize:vertical;min-height:84px}
+input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--brass)}
+input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--slate) 70%,transparent)}
+.err{font-size:.8rem;color:#B5533C;min-height:0}
+.err:empty{display:none}
+
+/* Distress lead form */
+.sell-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(32px,6vw,88px);align-items:start}
+.sell-grid h2{font-size:clamp(2.4rem,5vw,4rem)}
+.sell-grid .lede{margin-top:22px}
+.signs{margin-top:34px;list-style:none;padding:0;display:grid;gap:0}
+.signs li{padding:14px 0;border-top:1px solid var(--rule);font-size:.95rem;display:flex;gap:14px}
+.signs li span{font-family:var(--mono);font-size:.7rem;color:var(--brass);padding-top:4px}
+.alt{margin-top:28px;font-size:.92rem;color:var(--slate)}
+.alt a{color:var(--ink);text-underline-offset:3px;text-decoration-color:var(--brass)}
+.steps{display:flex;gap:0;margin:26px 0 4px;border-bottom:1px solid var(--rule)}
+.steps div{flex:1;padding:0 0 12px;font-family:var(--mono);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--slate);position:relative}
+.steps div.on{color:var(--ink)}
+.steps div.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--brass)}
+.chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;border:0;padding:0;margin:0}
+.chips legend{margin-bottom:12px}
+.chips{grid-auto-rows:1fr}
+.chip{position:relative;display:flex}
+.chip span{flex:1;min-height:58px}
+.chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.chip span{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid var(--rule);font-size:.9rem;line-height:1.3;transition:border-color .2s,background .2s}
+.chip span::before{content:"";flex:none;width:14px;height:14px;border:1px solid var(--slate);transition:all .2s}
+.chip input:checked+span{border-color:var(--brass);background:color-mix(in srgb,var(--brass) 9%,transparent)}
+.chip input:checked+span::before{background:var(--brass);border-color:var(--brass);box-shadow:inset 0 0 0 3px var(--card)}
+.chip input:focus-visible+span{outline:2px solid var(--brass);outline-offset:2px}
+@media (max-width:560px){.chips{grid-template-columns:1fr}}
+.scale{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.scale .chip span{justify-content:center;text-align:center;padding:12px 6px;font-size:.84rem}
+.scale .chip span::before{display:none}
+@media (max-width:560px){.scale{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.actions{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:6px}
+.fine{font-size:.78rem;color:var(--slate)}
+.done{text-align:left;padding-block:20px}
+.done .tick{width:48px;height:48px;border:1px solid var(--brass);border-radius:50%;display:grid;place-items:center;color:var(--brass);font-size:1.3rem;margin-bottom:20px}
+.done h3{font-size:2.1rem}
+.done p{margin-top:12px;color:var(--slate);max-width:52ch}
+.done .ref{margin-top:18px;font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;color:var(--brass)}
+.mail-copy{margin-top:28px;padding-top:24px;border-top:1px solid var(--rule);display:grid;gap:14px}
+.done .mail-copy .lbl{margin:0;max-width:none}
+.mc-meta{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:.88rem}
+.mc-meta dt{font-family:var(--mono);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--slate);padding-top:2px}
+.mc-meta dd{margin:0;color:var(--ink);overflow-wrap:anywhere}
+.mail-copy textarea{font-size:.88rem;line-height:1.55;border:1px solid var(--rule);padding:14px 16px;min-height:260px;resize:vertical}
+@media (max-width:900px){.sell-grid{grid-template-columns:1fr}}
+
+/* Residents */
+.res-top{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,6vw,88px);align-items:center}
+.res-top h2{font-size:clamp(2.4rem,5vw,4rem)}
+.res-tag{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 12px;border-radius:999px;font:600 .74rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--brass) 16%,var(--card)),color-mix(in srgb,var(--brass) 26%,var(--card)));border:1px solid color-mix(in srgb,var(--brass) 55%,transparent)}
+.res-tag i{width:7px;height:7px;border-radius:50%;background:var(--brass);box-shadow:0 0 0 3px color-mix(in srgb,var(--brass) 22%,transparent)}
+/* resident card */
+.res-card{position:relative;aspect-ratio:1.586;max-width:420px;width:100%;justify-self:end;border-radius:18px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;justify-content:space-between;color:#F3EFE7;overflow:hidden;
+  background:radial-gradient(120% 90% at 100% 0%,#2E2A3A 0%,transparent 55%),linear-gradient(140deg,#22223A 0%,#1A1A2E 55%,#141424 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 2px 4px rgba(26,26,46,.15),0 24px 50px -18px rgba(26,26,46,.55);
+  transform:perspective(1200px) rotateY(-8deg) rotateX(4deg);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.res-card:hover{transform:perspective(1200px) rotateY(0) rotateX(0)}
+.res-card::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(168,149,110,.06) 0 1px,transparent 1px 14px);pointer-events:none}
+.res-card::after{content:"";position:absolute;right:-60px;bottom:-60px;width:220px;height:220px;border-radius:50%;border:1px solid rgba(168,149,110,.35);box-shadow:0 0 0 22px rgba(168,149,110,.06),0 0 0 44px rgba(168,149,110,.04)}
+.rc-top,.rc-bot{position:relative;display:flex;justify-content:space-between;align-items:center;z-index:1}
+.res-card .mark{font-size:1.5rem;color:#F3EFE7}
+.res-card .mark span{color:#C8B48E}
+.rc-chip{width:38px;height:28px;border-radius:6px;background:linear-gradient(135deg,#C8B48E,#8B7355);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.rc-mid{position:relative;z-index:1;display:flex;flex-direction:column;gap:4px}
+.rc-k{font-family:var(--mono);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:#C8B48E}
+.rc-name{font-family:var(--display);font-style:italic;font-size:clamp(1.6rem,3vw,2.1rem);line-height:1}
+.rc-bot{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#A39E94}
+/* promise */
+.res-promise{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:clamp(48px,6vw,72px);border-top:1px solid var(--rule)}
+.res-promise div{padding:26px 22px 0 0}
+.res-promise div+div{padding-left:22px;border-left:1px solid var(--rule)}
+.res-promise h4{font-family:var(--display);font-size:1.4rem;font-weight:600;line-height:1.15;margin:0 0 8px}
+.res-promise p{font-size:.9rem;color:var(--slate)}
+/* join */
+.res-join{margin-top:clamp(48px,6vw,72px);padding:clamp(28px,4vw,44px);border-radius:16px;background:var(--stone);border:1px solid var(--rule)}
+.rj-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px}
+.rj-head h3{font-size:clamp(1.8rem,3vw,2.4rem)}
+.rj-steps{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.rj-steps li{position:relative;padding:22px 20px;border-radius:12px;background:var(--card);box-shadow:0 1px 2px color-mix(in srgb,var(--ink) 6%,transparent),0 10px 22px -14px color-mix(in srgb,var(--ink) 25%,transparent)}
+.rj-steps span{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:var(--brass)}
+.rj-steps h4{font-family:var(--display);font-size:1.35rem;font-weight:600;margin:8px 0 6px}
+.rj-steps p{font-size:.88rem;color:var(--slate)}
+.rj-cta{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:28px}
+@media (max-width:900px){.res-top{grid-template-columns:1fr}.res-card{justify-self:start}.res-promise{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}.res-promise div:nth-child(3){padding-left:0;border-left:0}.rj-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.res-promise{grid-template-columns:1fr}.res-promise div,.res-promise div+div{padding:20px 0 0;border-left:0}.rj-steps{grid-template-columns:1fr}.res-card{transform:none}}
+
+/* Contact + footer */
+.contact{background:var(--night);color:var(--on-night)}
+.contact .eyebrow{color:var(--brass-lt)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(32px,6vw,88px);align-items:end}
+.contact h2{font-size:clamp(2.6rem,6vw,5rem)}
+.contact h2 em{font-style:italic;font-weight:500;color:var(--brass-lt)}
+.contact .lede{color:var(--on-night-2);margin-top:22px}
+.coords{display:grid;gap:22px}
+.coords div{border-top:1px solid color-mix(in srgb,var(--on-night) 18%,transparent);padding-top:14px}
+.coords .lbl{color:var(--on-night-2)}
+.coords p{font-size:1.05rem;margin-top:6px}
+.copy{background:none;border:0;color:var(--brass-lt);font:inherit;font-size:.8rem;cursor:pointer;padding:0;margin-left:10px;text-decoration:underline;text-underline-offset:3px}
+.contact .btn{background:var(--brass);border-color:var(--brass);color:#fff;margin-top:34px}
+.contact .btn:hover{background:transparent;color:var(--on-night);border-color:var(--on-night)}
+footer{background:var(--night);color:var(--on-night-2);border-top:1px solid color-mix(in srgb,var(--on-night) 14%,transparent);padding-block:36px;font-size:.8rem}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+footer .mark{font-size:1.4rem;color:var(--on-night)}
+footer .tag{font-family:var(--display);font-style:italic;font-size:1.05rem;color:var(--on-night)}
+.socials{display:flex;flex-wrap:wrap;gap:10px}
+.soc{display:inline-flex;align-items:center;gap:9px;padding:9px 16px 9px 12px;border-radius:999px;text-decoration:none;font-size:.88rem;font-weight:500;color:var(--on-night);
+  border:1px solid color-mix(in srgb,var(--on-night) 22%,transparent);transition:background .3s,border-color .3s,color .3s,transform .3s}
+.soc svg,.soc-ic svg{width:17px;height:17px;fill:currentColor}
+.soc:hover,.soc:focus-visible{background:var(--brass);border-color:var(--brass);color:#fff;transform:translateY(-2px)}
+.foot-r{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap}
+.soc-ic{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;color:var(--on-night);border:1px solid color-mix(in srgb,var(--on-night) 20%,transparent);transition:background .3s,border-color .3s}
+.soc-ic:hover,.soc-ic:focus-visible{background:var(--brass);border-color:var(--brass);color:#fff}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+/* Scroll-in reveal (classes added by script; "backwards" fill hands transform back to each element's own styles when done) */
+@media (prefers-reduced-motion:no-preference){
+.rv:not(.in){opacity:0}
+.rv.in{animation:rvIn .8s cubic-bezier(.2,.7,.2,1) var(--rv-d,0s) backwards}
+.rv.rv-fade.in{animation-name:rvFade}
+}
+@keyframes rvIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes rvFade{from{opacity:0}to{opacity:1}}
+</style>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="NexOmes home"><b>Nex</b><span>Omes</span></a>
+    <nav aria-label="Primary"><ul>
+      <li><a href="#about">About</a></li><li><a href="#divisions">Divisions</a></li><li><a href="#process">Process</a></li>
+      <li><a href="#versus">Why NexOmes</a></li><li><a href="#sell">Owners</a></li><li><a href="#residents">Residents</a></li><li><a href="#contact">Contact</a></li>
+    </ul></nav>
+    <div class="nav-r">
+      <button class="theme" id="themeBtn" type="button" aria-label="Switch to dark mode">
+        <svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="btn" href="#sell">Assess my property <span class="arr">→</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">Real estate company · Rochester, New York</p>
+      <h1>We engineer <span class="i">the outcome.</span></h1>
+      <p class="lede">NexOmes acquires, renovates and stabilizes residential real estate across Rochester. Conservative underwriting, a dedicated LLC for every project, and one accountable team from acquisition to stabilized income.</p>
+      <div class="ctas">
+        <a class="btn" href="#sell">Is your property underperforming? <span class="arr">→</span></a>
+        <a class="btn ghost" href="#process">How we work</a>
+      </div>
+    </div>
+    <figure class="plate build-plate">
+      <svg viewBox="0 0 440 400" role="img" aria-label="Line drawing of a two-family Rochester home being built stage by stage" id="buildSvg">
+        <!-- drawing sheet: always visible -->
+        <line class="ln2" x1="20" y1="350" x2="420" y2="350"/>
+        <g class="ln2" stroke-dasharray="2 5"><line x1="80" y1="40" x2="80" y2="350"/><line x1="360" y1="40" x2="360" y2="350"/><line x1="20" y1="150" x2="420" y2="150"/></g>
+
+        <!-- 01 Foundation -->
+        <g class="bs" data-name="Foundation">
+          <path class="ln d" pathLength="1" d="M96 350 V338 H344 V350"/>
+          <path class="ln2 d" pathLength="1" d="M120 344 H150 M170 344 H200 M240 344 H270 M290 344 H320"/>
+        </g>
+        <!-- 02 Framing -->
+        <g class="bs" data-name="Framing">
+          <path class="ln d" pathLength="1" d="M100 338 V160 H340 V338"/>
+          <line class="ln d" pathLength="1" x1="100" y1="250" x2="340" y2="250"/>
+          <path class="ln2 d" pathLength="1" d="M124 250 V160 M148 250 V160 M172 250 V160 M196 250 V160 M244 250 V160 M268 250 V160 M292 250 V160 M316 250 V160"/>
+          <path class="ln2 d" pathLength="1" d="M124 338 V250 M148 338 V250 M172 338 V250 M196 338 V250 M244 338 V250 M268 338 V250 M292 338 V250 M316 338 V250"/>
+        </g>
+        <!-- 03 Roof -->
+        <g class="bs" data-name="Roof">
+          <path class="ln d" pathLength="1" d="M86 166 L220 64 L354 166"/>          <path class="ln2 d" pathLength="1" d="M120 140 L220 76 L320 140 M152 116 H288"/>
+        </g>
+        <!-- 04 Windows & doors -->
+        <g class="bs" data-name="Windows &amp; doors">
+          <path class="ln d" pathLength="1" d="M200 104 h40 v34 h-40 z M220 104 v34"/>
+          <path class="ln d" pathLength="1" d="M126 182 h40 v52 h-40 z M146 182 v52 M126 208 h40"/>
+          <path class="ln d" pathLength="1" d="M200 182 h40 v52 h-40 z M220 182 v52 M200 208 h40"/>
+          <path class="ln d" pathLength="1" d="M274 182 h40 v52 h-40 z M294 182 v52 M274 208 h40"/>
+          <path class="ln d" pathLength="1" d="M190 284 h24 v52 h-24 z M226 284 h24 v52 h-24 z"/>
+        </g>
+        <!-- 05 Porch -->
+        <g class="bs" data-name="Porch">
+          <path class="ln d" pathLength="1" d="M90 270 H350 M96 262 H344 L350 270"/>
+          <path class="ln d" pathLength="1" d="M108 270 V336 M172 270 V336 M268 270 V336 M332 270 V336"/>
+          <line class="ln d" pathLength="1" x1="100" y1="336" x2="340" y2="336"/>
+          <path class="ln d" pathLength="1" d="M108 314 H172 M268 314 H332"/>
+          <path class="ln2 d" pathLength="1" d="M118 314 v22 M128 314 v22 M138 314 v22 M148 314 v22 M158 314 v22 M278 314 v22 M288 314 v22 M298 314 v22 M308 314 v22 M318 314 v22"/>
+          <path class="ln d" pathLength="1" d="M184 338 H256 M178 344 H262 M172 350 H268"/>
+        </g>
+        <!-- 06 Finish -->
+        <g class="bs" data-name="Finish">
+          <path class="ln2 d" pathLength="1" d="M102 172 H124 M102 196 H124 M102 220 H124 M102 244 H124 M316 172 H338 M316 196 H338 M316 220 H338 M316 244 H338"/>
+          <path class="ln2 d" pathLength="1" d="M166 196 H200 M240 196 H274 M166 220 H200 M240 220 H274"/>
+          <path class="ln2 d" pathLength="1" d="M100 372 H340 M100 366 v12 M340 366 v12"/>
+          <text x="220" y="390" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" letter-spacing="2" fill="var(--slate)">TWO-FAMILY · 2½ STORY · ELEVATION</text>
+        </g>
+      </svg>
+      <figcaption>
+        <span id="bLabel" aria-live="off">Stage 01 · Foundation</span>
+        <span class="ticks" id="bTicks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- AUDIENCE DOORS -->
+<div class="doors">
+  <div class="wrap">
+    <a class="door" href="#sell"><span class="k">Sellers</span><h3>Sell a distressed property</h3><p>Vacant, behind on taxes, or costing you every month.</p><span class="go">Request an assessment <b>→</b></span></a>
+    <a class="door" href="#divisions"><span class="k">Owners</span><h3>Stabilize what you own</h3><p>Dependable income from 1–4 unit residential homes, without the day-to-day.</p><span class="go">NexOmes Residential <b>→</b></span></a>
+    <a class="door" href="#residents"><span class="k">Residents</span><h3>Live in a NexOmes home</h3><p>Well-maintained homes, kept to a standard.</p><span class="go">For residents <b>→</b></span></a>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-head">
+      <p class="eyebrow">About NexOmes</p>
+      <h2 class="ah-a">Better homes. Stronger assets.</h2>
+      <p class="ah-b"><em class="it">Disciplined execution.</em></p>
+      <div class="ah-side">
+        <p class="lede">We are a real estate operating company, built to turn underperforming property into high-performing assets. We are not a brokerage, and we don't gamble on renovations.</p>
+        <nav class="ah-divs" aria-label="Divisions"><a href="#divisions">Value-Add™</a><a href="#divisions">Residential</a><a href="#divisions">Multifamily</a></nav>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p class="purpose">We exist to provide quality homes and well-run real estate that improve the lives of residents while creating long-term value for owners and the neighborhoods we serve.</p>
+        <div class="sig">
+          <i>With warm regards,</i>
+          <b>Carlean Reynolds</b>
+          <span>Chief Operating Officer</span>
+          <span>NexOmes Corporation</span>
+        </div>
+      </div>
+      <ul class="tenets">
+        <li><strong>Disciplined</strong><span>Every acquisition passes the same underwriting. If the numbers don't hold at conservative assumptions, we walk.</span></li>
+        <li><strong>Systems-led</strong><span>AI is core infrastructure across every division, from deal screening to renovation scheduling and resident service.</span></li>
+        <li><strong>Accountable</strong><span>One team owns the asset end to end, with a clear escalation path and audit-ready records.</span></li>      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DIVISIONS -->
+<section class="divisions" id="divisions">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">Three divisions</p><h2 style="margin-top:16px">One operating company, three disciplines.</h2></div>
+      <p class="lede">Each division runs on the same underwriting standard and reporting cadence, so an asset can move from renovation to long-term hold without changing hands.</p>
+    </div>
+    <div class="div-list">
+      <article class="div-item">
+        <span class="k">Renovation</span>
+        <h3>NexOmes <em>Value-Add™</em></h3>
+        <p>Distressed acquisition and strategic renovation, executed through the NexOmes Rehab Control System™.</p>
+        <ul><li>Scope, budget and schedule fixed before demolition</li><li>Licensed contractors under a dedicated rehab entity</li><li>Staged renovation with inspection at every gate</li></ul>
+      </article>
+      <article class="div-item">
+        <span class="k">Residential</span>
+        <h3>NexOmes <em>Residential</em></h3>
+        <p>Long-term partnerships with owners of 1–4 unit residential homes who want dependable income without the day-to-day.</p>
+        <ul><li>Clear terms agreed up front</li><li>One accountable point of contact</li><li>Homes kept to a consistent standard</li></ul>
+      </article>
+      <article class="div-item">
+        <span class="k">Income property</span>
+        <h3>NexOmes <em>Multifamily</em></h3>
+        <p>Multifamily acquisitions along Rochester's transit corridors, with a focus on income optimization over time.</p>
+        <ul><li>Corridor-based site selection</li><li>Rent roll and expense normalization</li><li>Capital improvements tied to income</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">The Value-Add™ system</p><h2 style="margin-top:16px">Five stages. <em class="it">No improvisation.</em></h2></div>
+      <p class="lede">Every asset moves through the same sequence, with defined deliverables and sign-off before the next stage begins.</p>
+    </div>
+    <ol class="stages">
+      <li class="stage"><span class="n"></span><h3>Identify</h3><p>Source and screen assets against strict acquisition criteria.</p></li>
+      <li class="stage"><span class="n"></span><h3>Acquire</h3><p>Underwrite conservatively, complete due diligence, close in a dedicated LLC.</p></li>
+      <li class="stage"><span class="n"></span><h3>Transform</h3><p>Fixed scope of work, budget and schedule. Renovate in controlled stages.</p></li>
+      <li class="stage"><span class="n"></span><h3>Stabilize</h3><p>Place qualified residents and establish dependable cash flow.</p></li>
+      <li class="stage"><span class="n"></span><h3>Optimize</h3><p>Long-term stewardship, refinance or disposition on plan.</p></li>
+    </ol>
+    <div class="rcs">
+      <p>The NexOmes Rehab Control System™ governs every renovation: <em class="it">scope locked, costs tracked, milestones inspected.</em></p>
+      <a class="btn ghost" href="#sell">Request an assessment <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- OLD WAY VS NEXOMES WAY -->
+<section class="versus" id="versus">
+  <div class="wrap">
+    <div class="vs-top">
+      <div>
+        <p class="eyebrow">Why NexOmes</p>
+        <h2 style="margin-top:16px">The old way vs. <em>the NexOmes way.</em></h2>
+        <p class="lede">A struggling property feels like a list of bad options. It doesn't have to be.</p>
+      </div>
+      <div class="vs-tabs" role="tablist" aria-label="Choose who you are">
+        <button type="button" role="tab" id="tab-own" aria-controls="vs-own" aria-selected="true">Property owners</button>
+        <button type="button" role="tab" id="tab-res" aria-controls="vs-res" aria-selected="false" tabindex="-1">Residents</button>
+      </div>
+    </div>
+
+    <div class="vs-panel vs-table" id="vs-own" role="tabpanel" aria-labelledby="tab-own">
+      <div class="vs-row vs-head"><div class="vs-old">What most owners are stuck doing</div><div class="vs-new">The NexOmes way</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>List it, wait months, and hope a buyer shows up</s></div><div class="vs-new"><span class="vs-mk">✓</span>A clear, written path forward after one walkthrough</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>Pay for repairs before anyone will make an offer</s></div><div class="vs-new"><span class="vs-mk">✓</span>Sell as-is. We underwrite the repairs, not you</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>Cover the mortgage while the unit sits vacant</s></div><div class="vs-new"><span class="vs-mk">✓</span>Turn a monthly loss into dependable income</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>Face code violations, liens and back taxes alone</s></div><div class="vs-new"><span class="vs-mk">✓</span>Every issue mapped into one plan</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>Juggle contractors, permits and surprise costs</s></div><div class="vs-new"><span class="vs-mk">✓</span>Scope, budget and schedule fixed before work begins</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>Wait weeks to hear back</s></div><div class="vs-new"><span class="vs-mk">✓</span>A response within one business day</div></div>
+      <div class="vs-cta"><a class="btn" href="#sell">Get my property assessed <span class="arr">→</span></a><span class="fine">Confidential. No obligation. Two minutes to start.</span></div>
+    </div>
+
+    <div class="vs-panel vs-table" id="vs-res" role="tabpanel" aria-labelledby="tab-res" hidden>
+      <div class="vs-row vs-head"><div class="vs-old">What most renters put up with</div><div class="vs-new">The NexOmes way</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>Move into a unit that was patched, not cared for</s></div><div class="vs-new"><span class="vs-mk">✓</span>Move into a well-maintained home, ready on day one</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>Repair requests that disappear</s></div><div class="vs-new"><span class="vs-mk">✓</span>Every request tracked from submission to completion</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>Problems fixed only after they break</s></div><div class="vs-new"><span class="vs-mk">✓</span>Preventive maintenance on a set schedule</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>Different rules for different applicants</s></div><div class="vs-new"><span class="vs-mk">✓</span>One clear, consistent screening standard</div></div>
+      <div class="vs-row"><div class="vs-old"><span class="vs-mk">✕</span><s>Nobody to call when something goes wrong</s></div><div class="vs-new"><span class="vs-mk">✓</span>A responsive team with a clear escalation path</div></div>
+      <div class="vs-cta"><a class="btn" href="#residents">See resident information <span class="arr">→</span></a><span class="fine">Homes across Rochester, kept to one standard.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SELL / DISTRESS LEAD FORM -->
+<section id="sell">
+  <div class="wrap sell-grid">
+    <div>
+      <p class="eyebrow">For property owners</p>
+      <h2 style="margin-top:16px">Is your property in distress, or <em class="it">not cash flowing?</em></h2>
+      <p class="lede">Tell us about it in two minutes. We'll review it confidentially and respond with clear options: a direct purchase, a long-term partnership, or a stabilization plan.</p>
+      <ul class="signs">
+        <li><span>A</span>Vacant, or residents who aren't paying</li>
+        <li><span>B</span>Back taxes, liens or a foreclosure notice</li>
+        <li><span>C</span>Code violations or deferred repairs</li>
+        <li><span>D</span>Inherited, or more work than you want to take on</li>
+      </ul>
+    </div>
+
+    <div class="panel" id="leadPanel">
+      <h3>Property assessment</h3>
+      <p class="sub">Confidential. No obligation.</p>
+      <div class="steps" aria-hidden="true"><div class="on" id="st1">01 · Property basics</div><div id="st2">02 · Condition &amp; contact</div></div>
+
+      <form id="leadForm" novalidate>
+        <!-- Step 1 -->
+        <div id="step1" style="display:grid;gap:18px">
+          <div class="f"><label for="l-addr">Property address</label><input id="l-addr" name="address" autocomplete="street-address" required placeholder="Street address"></div>
+          <div class="row three">
+            <div class="f"><label for="l-city">City</label><input id="l-city" name="city" value="Rochester"></div>
+            <div class="f"><label for="l-state">State</label><input id="l-state" name="state" value="NY"></div>
+            <div class="f"><label for="l-zip">ZIP</label><input id="l-zip" name="zip" inputmode="numeric" maxlength="5" placeholder="146__"></div>
+          </div>
+          <div class="row">
+            <div class="f"><label for="l-type">Property type</label><select id="l-type" name="type"><option>1–4 unit residential</option><option>Multifamily (5+ units)</option><option>Mixed-use</option><option>Vacant land</option></select></div>
+            <div class="f"><label for="l-units">Number of units</label><input id="l-units" name="units" type="number" min="1" value="1"></div>
+          </div>
+          <div class="row three">
+            <div class="f"><label for="l-beds">Bedrooms</label><input id="l-beds" name="beds" type="number" min="0" placeholder="3"></div>
+            <div class="f"><label for="l-baths">Bathrooms</label><input id="l-baths" name="baths" type="number" min="0" step="0.5" placeholder="1.5"></div>
+            <div class="f"><label for="l-occ">Occupancy</label><select id="l-occ" name="occupancy"><option>Owner-occupied</option><option>Resident-occupied</option><option>Partially occupied</option><option>Vacant</option></select></div>
+          </div>
+          <div class="f"><label for="l-rel">Your relationship to the property</label><select id="l-rel" name="relationship"><option>Owner</option><option>Co-owner</option><option>Heir / estate executor</option><option>Agent or attorney</option></select></div>
+          <p class="err" id="e1" role="alert"></p>
+          <div class="actions"><span class="fine">Step 1 of 2</span><button class="btn" type="button" id="next">Continue <span class="arr">→</span></button></div>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="step2" hidden style="display:grid;gap:22px">
+          <fieldset class="chips">
+            <legend class="lbl">What best describes the situation? Select all that apply.</legend>
+            <label class="chip"><input type="checkbox" name="distress" value="Not cash flowing"><span>Not cash flowing / losing money monthly</span></label>
+            <label class="chip"><input type="checkbox" name="distress" value="Vacant"><span>Vacant or abandoned</span></label>
+            <label class="chip"><input type="checkbox" name="distress" value="Resident arrears"><span>Residents behind on rent</span></label>
+            <label class="chip"><input type="checkbox" name="distress" value="Eviction"><span>Eviction in progress</span></label>
+            <label class="chip"><input type="checkbox" name="distress" value="Code violations"><span>Code violations</span></label>
+            <label class="chip"><input type="checkbox" name="distress" value="Tax delinquency"><span>Behind on property taxes</span></label>
+            <label class="chip"><input type="checkbox" name="distress" value="Pre-foreclosure"><span>Foreclosure notice / behind on mortgage</span></label>
+            <label class="chip"><input type="checkbox" name="distress" value="Deferred maintenance"><span>Major repairs needed</span></label>
+            <label class="chip"><input type="checkbox" name="distress" value="Fire or water damage"><span>Fire or water damage</span></label>
+            <label class="chip"><input type="checkbox" name="distress" value="Inherited"><span>Inherited / estate property</span></label>
+          </fieldset>
+          <fieldset class="chips" style="display:block">
+            <legend class="lbl">Overall condition</legend>
+            <div class="scale">
+              <label class="chip"><input type="radio" name="condition" value="Move-in ready"><span>Move-in ready</span></label>
+              <label class="chip"><input type="radio" name="condition" value="Cosmetic"><span>Cosmetic work</span></label>
+              <label class="chip"><input type="radio" name="condition" value="Significant"><span>Significant repairs</span></label>
+              <label class="chip"><input type="radio" name="condition" value="Uninhabitable"><span>Uninhabitable</span></label>
+            </div>
+          </fieldset>
+          <div class="row">
+            <div class="f"><label for="l-name">Your name</label><input id="l-name" name="name" autocomplete="name" required placeholder="Full name"></div>
+            <div class="f"><label for="l-phone">Phone</label><input id="l-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" required maxlength="14" placeholder="(585) 555-0123"></div>
+          </div>
+          <div class="row">
+            <div class="f"><label for="l-email">Email</label><input id="l-email" name="email" type="email" autocomplete="email" required placeholder="name@email.com"></div>
+            <div class="f"><label for="l-when">Timeline to resolve</label><select id="l-when" name="timeline"><option>As soon as possible</option><option>Within 30 days</option><option>1–3 months</option><option>Just exploring options</option></select></div>
+          </div>
+          <div class="f"><label for="l-notes">Anything else we should know?</label><textarea id="l-notes" name="notes" placeholder="Monthly shortfall, outstanding balances, access instructions…"></textarea></div>
+          <input type="text" id="l-hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <p class="err" id="e2" role="alert"></p>
+          <div class="actions"><button class="btn ghost" type="button" id="back">← Back</button><button class="btn" type="submit">Request my assessment <span class="arr">→</span></button></div>
+        </div>
+      </form>
+
+      <div class="done" id="leadDone" hidden>
+        <div class="tick">✓</div>
+        <h3 id="doneH">Thank you. We have your details.</h3>
+        <p id="doneP">A member of the NexOmes team will review the property and contact you within one business day with next steps.</p>
+        <p class="ref" id="leadRef"></p>
+        <div class="mail-copy">
+          <p class="lbl" id="mcNote">Want a copy for your records? Here's your request as an email.</p>
+          <dl class="mc-meta"><dt>To</dt><dd>info@nexomes.com</dd><dt>Subject</dt><dd id="mcSubj"></dd></dl>
+          <textarea id="mcBody" readonly rows="14" aria-label="Email message"></textarea>
+          <div class="actions"><button class="btn" type="button" id="mcCopy">Copy message</button><a class="btn ghost" id="mcOpen" href="mailto:info@nexomes.com">Open in email app <span class="arr">→</span></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESIDENTS -->
+<section class="residents" id="residents">
+  <div class="wrap">
+    <div class="res-top">
+      <div>
+        <span class="res-tag"><i></i>NexOmes Resident</span>
+        <h2 style="margin-top:20px">You're not a lease. <em class="it">You're family.</em></h2>
+        <p class="lede" style="margin-top:22px">Everyone who walks through our door is looking for a home, not a unit. As a NexOmes Resident, you're part of our family, and we treat you that way from the first walkthrough to every renewal after.</p>
+      </div>
+      <div class="res-card" aria-hidden="true">
+        <div class="rc-top"><span class="mark"><b>Nex</b><span>Omes</span></span><span class="rc-chip"></span></div>
+        <div class="rc-mid">
+          <span class="rc-k">Resident</span>
+          <span class="rc-name">Welcome home.</span>
+        </div>
+        <div class="rc-bot"><span>Rochester, New York</span><span>Family since day one</span></div>
+      </div>
+    </div>
+
+    <div class="res-promise">
+      <div><h4>Ready before you arrive</h4><p>Every home is well maintained and inspected before move-in. You never move into someone else's leftovers.</p></div>
+      <div><h4>Heard, not handled</h4><p>Repair requests are tracked from the moment you submit them until the job is done, and you see every step.</p></div>
+      <div><h4>Respect, every time</h4><p>One clear, consistent screening standard for every applicant. No surprises, no fine print games.</p></div>
+      <div><h4>Cared for, not chased</h4><p>Preventive maintenance on a set schedule, so small problems never become your problem.</p></div>
+    </div>
+
+    <div class="res-join">
+      <div class="rj-head">
+        <p class="eyebrow">Join the NexOmes Resident family</p>
+        <h3>Four steps home.</h3>
+      </div>
+      <ol class="rj-steps">
+        <li><span>01</span><h4>Find your home</h4><p>Browse available homes across Rochester.</p></li>
+        <li><span>02</span><h4>Apply</h4><p>One simple application, reviewed the same way for everyone.</p></li>
+        <li><span>03</span><h4>Move in</h4><p>A clean, well-maintained home and a walkthrough with our team.</p></li>
+        <li><span>04</span><h4>Settle in</h4><p>Your resident portal for payments and requests, and a team that knows your name.</p></li>
+      </ol>
+      <div class="rj-cta"><a class="btn" href="#contact">Become a NexOmes Resident <span class="arr">→</span></a><span class="fine">Ask about homes available now.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2 style="margin-top:16px">We're building something. <em>If that resonates, let's talk.</em></h2>
+      <p class="lede">Property owners and residents are all welcome. Every inquiry is answered by a member of our team.</p>
+      <a class="btn" href="#sell">Request an assessment <span class="arr">→</span></a>
+    </div>
+    <div class="coords">
+      <div><span class="lbl">Headquarters</span><p>902 Portland Ave<br>Rochester, NY 14621</p></div>
+      <div><span class="lbl">Email</span><p><span id="em">info@nexomes.com</span><button class="copy" type="button" data-copy="em">Copy</button></p></div>
+      <div><span class="lbl">Hours</span><p>Monday – Friday, 9:00 a.m. – 5:00 p.m.</p></div>
+      <div><span class="lbl">Follow us</span>
+        <p class="socials">
+          <a class="soc" href="https://www.facebook.com/share/18D3wN2pAw/" target="_blank" rel="noopener" aria-label="NexOmes on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.6V11H7v4h2.5v9h4v-9h3l.5-4h-3.5V8.8c0-.5.3-.8.5-.8z"/></svg><span>Facebook</span></a>
+          <a class="soc" href="https://www.instagram.com/nexomes_/" target="_blank" rel="noopener" aria-label="NexOmes on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.2"/></svg><span>Instagram</span></a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mark"><b>Nex</b><span>Omes</span></span>
+    <span class="tag">Better homes. Stronger assets. Disciplined execution.</span>
+    <span class="foot-r">
+      <a class="soc-ic" href="https://www.facebook.com/share/18D3wN2pAw/" target="_blank" rel="noopener" aria-label="NexOmes on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.6V11H7v4h2.5v9h4v-9h3l.5-4h-3.5V8.8c0-.5.3-.8.5-.8z"/></svg></a>
+      <a class="soc-ic" href="https://www.instagram.com/nexomes_/" target="_blank" rel="noopener" aria-label="NexOmes on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.2"/></svg></a>
+      <span>© 2026 NexOmes Corporation · Rochester, New York</span>
+    </span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const emailOk=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  // Two-step lead form
+  const s1=$('step1'), s2=$('step2');
+  function go(step){
+    s1.hidden=step!==1; s2.hidden=step!==2;
+    $('st1').classList.toggle('on',step===1); $('st2').classList.toggle('on',step===2);
+  }
+  $('next').addEventListener('click',()=>{
+    const a=$('l-addr').value.trim(), z=$('l-zip').value.trim();
+    if(!a){$('e1').textContent='Enter the property address to continue.';$('l-addr').focus();return}
+    if(z && !/^\d{5}$/.test(z)){$('e1').textContent='ZIP code should be five digits.';$('l-zip').focus();return}
+    $('e1').textContent=''; go(2); $('leadPanel').scrollIntoView({block:'start'});
+  });
+  $('back').addEventListener('click',()=>go(1));
+  $('leadForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const name=$('l-name').value.trim(), ph=$('l-phone').value.replace(/\D/g,''), em=$('l-email').value.trim();
+    const picked=[...document.querySelectorAll('input[name=distress]:checked')];
+    if(!picked.length){$('e2').textContent='Select at least one situation that applies.';return}
+    if(!name){$('e2').textContent='Add your name so we know who to contact.';$('l-name').focus();return}
+    if(ph.length<10){$('e2').textContent='Enter a 10-digit phone number.';$('l-phone').focus();return}
+    if(!emailOk(em)){$('e2').textContent='Enter a valid email address, like name@email.com.';$('l-email').focus();return}
+    $('e2').textContent='';
+    const d=new Date(), ref='NX-'+d.getFullYear().toString().slice(2)+String(d.getMonth()+1).padStart(2,'0')+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
+    const v=id=>$(id).value.trim()||'—';
+    const cond=document.querySelector('input[name=condition]:checked');
+    const addr=v('l-addr')+', '+v('l-city')+', '+v('l-state')+' '+($('l-zip').value.trim());
+    // Curated email: FormSubmit renders these keys, in order, as a table
+    const mail={
+      _subject:'New property assessment: '+v('l-addr')+', '+v('l-city')+' ('+ref+')',
+      _template:'table', _captcha:'false', _replyto:em,
+      _honey:$('l-hp').value,
+      'Reference':ref,
+      'Submitted':d.toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'}),
+      '— CONTACT —':'',
+      'Name':name,
+      'Phone':$('l-phone').value,
+      'Email':em,
+      'Relationship':v('l-rel'),
+      'Timeline':v('l-when'),
+      '— PROPERTY —':'',
+      'Address':addr.trim(),
+      'Type':v('l-type'),
+      'Units':v('l-units'),
+      'Beds / baths':v('l-beds')+' bd · '+v('l-baths')+' ba',
+      'Occupancy':v('l-occ'),
+      '— SITUATION —':'',
+      'Distress signals':picked.map(p=>p.value).join(', '),
+      'Overall condition':cond?cond.value:'—',
+      'Notes':v('l-notes')
+    };
+    // Copy-ready email written in the owner's voice
+    const opt=id=>$(id).value.trim();
+    const subj='Property assessment request: '+v('l-addr')+', '+v('l-city')+' ('+ref+')';
+    const body=[
+      'Hello NexOmes team,','',
+      'I would like a confidential assessment of my property. The details are below.','',
+      'PROPERTY',
+      'Address: '+addr.trim(),
+      'Type: '+v('l-type')+(opt('l-units')?' · '+opt('l-units')+' unit'+(opt('l-units')==='1'?'':'s'):''),
+      (opt('l-beds')||opt('l-baths'))?'Bedrooms / bathrooms: '+v('l-beds')+' / '+v('l-baths'):null,
+      'Occupancy: '+v('l-occ'),
+      'My relationship to the property: '+v('l-rel'),'',
+      'SITUATION',
+      ...picked.map(p=>'- '+p.nextElementSibling.textContent),
+      'Overall condition: '+(cond?cond.nextElementSibling.textContent:'Not specified'),
+      'Timeline to resolve: '+v('l-when'),
+      opt('l-notes')?'':null, opt('l-notes')?'Additional notes:\n'+opt('l-notes'):null,'',
+      'The best way to reach me is '+$('l-phone').value+' or '+em+'.','',
+      'Thank you,',name,'',
+      'Reference '+ref
+    ].filter(x=>x!==null).join('\n');
+    function finish(sent){
+      $('leadForm').hidden=true; document.querySelector('#leadPanel .steps').hidden=true;
+      $('leadRef').textContent='Reference '+ref;
+      $('mcSubj').textContent=subj; $('mcBody').value=body;
+      $('mcOpen').href='mailto:info@nexomes.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+      if(!sent){
+        $('doneH').textContent='Almost there. Send it to us by email.';
+        $('doneP').textContent='We couldn’t submit your request automatically. Copy the message below and email it to info@nexomes.com, or open it in your email app. We’ll respond within one business day.';
+        $('mcNote').textContent='Your request, ready to send';
+        document.querySelector('#leadDone .tick').textContent='→';
+      }
+      $('leadDone').hidden=false;
+      $('leadPanel').scrollIntoView({block:'start'});
+    }
+    const btn=$('leadForm').querySelector('[type=submit]');
+    btn.disabled=true; btn.textContent='Sending…';
+    fetch('https://formsubmit.co/ajax/info@nexomes.com',{
+      method:'POST', headers:{'Content-Type':'application/json',Accept:'application/json'}, body:JSON.stringify(mail)
+    }).then(r=>r.json().then(j=>{if(!r.ok||String(j.success)!=='true'){console.warn('[lead form] FormSubmit:',j.message||r.status);throw 0}}))
+    .then(()=>finish(true), ()=>finish(false));
+  });
+  $('mcCopy').addEventListener('click',()=>{
+    const b=$('mcCopy'), ta=$('mcBody');
+    const ok=()=>{b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy message',1800)};
+    const fallback=()=>{ta.focus();ta.select();try{document.execCommand('copy')&&ok()}catch(_){}};
+    try{navigator.clipboard.writeText(ta.value).then(ok,fallback)}catch(_){fallback()}
+  });
+
+  // Hero build-up sequence
+  (function(){
+    const svg=$('buildSvg'), groups=[...svg.querySelectorAll('.bs')], ticks=[...$('bTicks').children], lbl=$('bLabel');
+    const setLabel=(i)=>{lbl.textContent='Stage 0'+(i+1)+' · '+groups[i].dataset.name; ticks.forEach((t,k)=>t.classList.toggle('on',k<=i))};
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+      groups.forEach(g=>g.classList.add('on','done')); ticks.forEach(t=>t.classList.add('on')); lbl.textContent='Complete · Ready for residents'; return;
+    }
+    let i=0;
+    function step(){
+      if(i>0) groups[i-1].classList.add('done');
+      if(i<groups.length){ groups[i].classList.add('on'); setLabel(i); i++; setTimeout(step,i===1?900:1300); return; }
+      lbl.textContent='Complete · Ready for residents';
+      setTimeout(()=>{
+        svg.classList.add('fade');
+        setTimeout(()=>{
+          svg.classList.add('snap'); groups.forEach(g=>g.classList.remove('on','done')); ticks.forEach(t=>t.classList.remove('on'));
+          void svg.getBoundingClientRect();
+          svg.classList.remove('fade','snap'); i=0; setTimeout(step,300);
+        },750);
+      },4200);
+    }
+    setTimeout(step,250);
+  })();
+
+  // Scroll-in reveal, staggered among siblings
+  (function(){
+    if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const els=[...document.querySelectorAll([
+      '.about-head>*','.purpose','.sig','.tenets li',
+      '.sec-head>*','.div-item','.stage','.rcs',
+      '.vs-top>*','#vs-own',
+      '.sell-grid>div:first-child>*','#leadPanel',
+      '.res-top>div:first-child>*','.res-card','.res-promise>div','.rj-head','.rj-steps li','.rj-cta',
+      '.contact-grid>div:first-child>*','.coords>div'
+    ].join(','))];
+    const seen=new Map();
+    els.forEach(el=>{
+      const n=seen.get(el.parentNode)||0; seen.set(el.parentNode,n+1);
+      el.style.setProperty('--rv-d',Math.min(n,5)*.09+'s');
+      el.classList.add('rv');
+    });
+    document.querySelector('.res-card').classList.add('rv-fade'); // fade only, keeps its tilt
+    const io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+    }),{rootMargin:'0px 0px -10% 0px'});
+    els.forEach(el=>io.observe(el));
+  })();
+
+  // Numbers only: phone (auto-formatted) and ZIP
+  $('l-phone').addEventListener('input',e=>{
+    let d=e.target.value.replace(/\D/g,'');
+    if(d.length>10&&d[0]==='1') d=d.slice(1);
+    d=d.slice(0,10);
+    e.target.value=d.length>6?'('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6):d.length>3?'('+d.slice(0,3)+') '+d.slice(3):d;
+  });
+  $('l-zip').addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,5)});
+
+  // Old way vs NexOmes way tabs
+  (function(){
+    const tabs=[...document.querySelectorAll('.vs-tabs [role=tab]')];
+    function sel(t){
+      tabs.forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;$(x.getAttribute('aria-controls')).hidden=!on});
+    }
+    tabs.forEach((t,i)=>{
+      t.addEventListener('click',()=>sel(t));
+      t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];sel(n);n.focus()}});
+    });
+  })();
+
+  // Theme toggle (light by default)
+  const root=document.documentElement, tb=$('themeBtn');
+  const label=()=>tb.setAttribute('aria-label',root.dataset.theme==='dark'?'Switch to light mode':'Switch to dark mode');
+  label();
+  tb.addEventListener('click',()=>{
+    const t=root.dataset.theme==='dark'?'light':'dark';
+    root.setAttribute('data-theme',t); label();
+    try{localStorage.setItem('nx-theme',t)}catch(_){}
+  });
+
+  // Copy buttons
+  document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+    const t=$(b.dataset.copy).textContent;
+    const ok=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1600)};
+    try{navigator.clipboard.writeText(t).then(ok,()=>sel($(b.dataset.copy)))}catch(_){sel($(b.dataset.copy))}
+  }));
+  function sel(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+})();
+</script>
+
+</body></html>

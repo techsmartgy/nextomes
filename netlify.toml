@@ -1,0 +1,16 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Public values that end up in the browser bundle by design
+  SECRETS_SCAN_OMIT_KEYS = "PLACE_API,VITE_SUPABASE_URL,VITE_SUPABASE_PUBLISHABLE_KEY,ADMIN_USERNAME"
+
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
