@@ -1,0 +1,8 @@
+# Admin API: same paths as the Vite dev middleware (vite.config.js).
+# Must stay above the SPA fallback, since redirects match in order.
+/admin-login     /.netlify/functions/admin-login     200
+/admin-session   /.netlify/functions/admin-session   200
+/admin-requests  /.netlify/functions/admin-requests  200
+
+# SPA fallback for client-side routes (/admin, /admin/requests, ...)
+/*               /index.html                         200

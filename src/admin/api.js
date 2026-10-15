@@ -1,5 +1,6 @@
-// Admin API client. In dev the Vite middleware serves these paths (see vite.config.js).
-const BASE = import.meta.env.PROD ? '/.netlify/functions' : ''
+// Admin API client. In dev the Vite middleware serves these paths (see vite.config.js);
+// on Netlify they're rewritten to the functions (see netlify.toml).
+const BASE = ''
 const TOKEN_KEY = 'nxAdminToken'
 
 export class AuthError extends Error {}
