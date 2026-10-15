@@ -1,5 +1,4 @@
-i
-mport { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { handleLogin, handleSession } from './netlify/lib/adminAuth.js'
 import { handleRequests } from './netlify/lib/requests.js'
