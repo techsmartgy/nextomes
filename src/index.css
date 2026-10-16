@@ -336,7 +336,8 @@ input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--slate) 70
 .as-panel .actions{margin-top:4px;padding-top:24px;border-top:1px solid var(--rule)}
 .as-panel .btn{border-radius:8px}
 .as-note{text-align:center;font-size:.88rem;color:var(--slate)}
-.as-note a{color:var(--ink);text-underline-offset:3px;text-decoration-color:var(--brass)}
+.as-consent{font-size:.88rem;color:var(--slate);margin-top:16px}
+.as-note a,.as-consent a{color:var(--ink);text-underline-offset:3px;text-decoration-color:var(--brass)}
 .as-thanks{display:flex;flex-direction:column;align-items:center;text-align:center;padding-block:clamp(24px,6vw,56px)}
 .as-thanks .tick{margin-bottom:24px}
 .as-thanks .btn{margin-top:32px}
@@ -448,6 +449,8 @@ footer .tag{font-family:var(--display);font-style:italic;font-size:1.05rem;color
 .soc svg,.soc-ic svg{width:17px;height:17px;fill:currentColor}
 .soc:hover,.soc:focus-visible{background:var(--brass);border-color:var(--brass);color:#fff;transform:translateY(-2px)}
 .foot-r{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap}
+.foot-link{color:inherit;text-underline-offset:3px;text-decoration-color:var(--brass)}
+.foot-link:hover,.foot-link:focus-visible{color:var(--on-night)}
 .soc-ic{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;color:var(--on-night);border:1px solid color-mix(in srgb,var(--on-night) 20%,transparent);transition:background .3s,border-color .3s}
 .soc-ic:hover,.soc-ic:focus-visible{background:var(--brass);border-color:var(--brass);color:#fff}
 @media (max-width:900px){.contact-grid{grid-template-columns:1fr}}

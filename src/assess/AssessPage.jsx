@@ -315,6 +315,7 @@ function LeadForm() {
                 {sending ? 'Sending…' : <>{last ? 'Request my assessment' : 'Continue'} <span className="arr">→</span></>}
               </button>
             </div>
+            {last && <p className="as-consent">By submitting, you agree to our <a href="/privacy-policy.html">Privacy Policy</a>. We never sell your information.</p>}
           </form>
         )}
 

@@ -10,6 +10,7 @@ export default function Footer() {
         <span className="foot-r">
           <a className="soc-ic" href={FACEBOOK_URL} target="_blank" rel="noopener" aria-label="NexOmes on Facebook"><FacebookIcon /></a>
           <a className="soc-ic" href={INSTAGRAM_URL} target="_blank" rel="noopener" aria-label="NexOmes on Instagram"><InstagramIcon /></a>
+          <a className="foot-link" href="/privacy-policy.html">Privacy Policy</a>
           <span>© 2026 NexOmes Corporation · Rochester, New York</span>
         </span>
       </div>
